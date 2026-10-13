@@ -2,16 +2,16 @@ import React from "react";
 
 export default function TrustBar() {
   return (
-    <section className="w-full bg-slate-50 border-y border-slate-200/80 py-10 sm:py-14 my-4">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-slate-200">
+    <section className="w-full bg-slate-50 border-y border-slate-200/80 py-8 sm:py-12 my-2 sm:my-4">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 text-center md:text-left divide-y md:divide-y-0 md:divide-x divide-slate-200">
           
           {/* Stat 1 */}
-          <div className="pt-4 md:pt-0 md:pr-8">
-            <div className="text-3xl sm:text-4xl font-semibold tracking-tight text-slate-950 mb-1">
+          <div className="pt-2 md:pt-0 md:pr-6 group transition-transform duration-200 hover:-translate-y-0.5">
+            <div className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-950 mb-1">
               40,208+
             </div>
-            <div className="flex items-center justify-center md:justify-start gap-1 text-xs font-semibold text-slate-900 mb-0.5">
+            <div className="flex items-center justify-center md:justify-start gap-1 text-xs font-bold text-slate-900 mb-1">
               <div className="flex items-center text-amber-500">
                 {[...Array(5)].map((_, i) => (
                   <svg key={i} className="w-3.5 h-3.5 fill-amber-500 text-amber-500" viewBox="0 0 20 20">
@@ -27,11 +27,11 @@ export default function TrustBar() {
           </div>
 
           {/* Stat 2 */}
-          <div className="pt-6 md:pt-0 md:px-8">
-            <div className="text-3xl sm:text-4xl font-semibold tracking-tight text-slate-950 mb-1">
+          <div className="pt-6 md:pt-0 md:px-6 group transition-transform duration-200 hover:-translate-y-0.5">
+            <div className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-950 mb-1">
               100%
             </div>
-            <div className="text-xs font-semibold text-slate-900 mb-0.5">
+            <div className="text-xs font-bold text-slate-900 mb-1">
               Satisfaction Guarantee
             </div>
             <p className="text-xs text-slate-500">
@@ -40,11 +40,11 @@ export default function TrustBar() {
           </div>
 
           {/* Stat 3 */}
-          <div className="pt-6 md:pt-0 md:pl-8">
-            <div className="text-3xl sm:text-4xl font-semibold tracking-tight text-slate-950 mb-1">
+          <div className="pt-6 md:pt-0 md:pl-6 group transition-transform duration-200 hover:-translate-y-0.5">
+            <div className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-950 mb-1">
               90-Min
             </div>
-            <div className="text-xs font-semibold text-slate-900 mb-0.5">
+            <div className="text-xs font-bold text-slate-900 mb-1">
               Same-Day Dispatch Available
             </div>
             <p className="text-xs text-slate-500">
