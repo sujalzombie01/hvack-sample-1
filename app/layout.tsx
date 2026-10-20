@@ -1,6 +1,15 @@
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import {
+  META_TITLE,
+  META_DESCRIPTION,
+  META_KEYWORDS,
+  BUSINESS_NAME,
+  PHONE,
+  CITY,
+  STATE,
+} from "@/config/site";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -13,16 +22,25 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Apex HVAC & Home Services | Precision Heating, Cooling & 24/7 Dispatch",
-  description:
-    "24/7 Same-Day AC & Heating Repair. Stocked trucks for 1-trip fixes, transparent upfront pricing, instant SMS dispatch, and 100% Satisfaction Guarantee.",
-  keywords: [
-    "AC Repair",
-    "HVAC Service",
-    "Air Conditioning Repair",
-    "Emergency AC Repair",
-    "Heating & Cooling",
-  ],
+  title: META_TITLE,
+  description: META_DESCRIPTION,
+  keywords: META_KEYWORDS,
+};
+
+// schema.org LocalBusiness JSON-LD — injected server-side
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "LocalBusiness",
+  name: BUSINESS_NAME,
+  telephone: PHONE,
+  address: {
+    "@type": "PostalAddress",
+    addressLocality: CITY,
+    addressRegion: STATE,
+    addressCountry: "US",
+  },
+  url: "https://example.com", // ← replace with actual domain
+  description: META_DESCRIPTION,
 };
 
 export default function RootLayout({
@@ -35,6 +53,12 @@ export default function RootLayout({
       lang="en"
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body className="min-h-full flex flex-col bg-slate-50 text-slate-900">
         {children}
       </body>

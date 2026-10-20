@@ -6,43 +6,36 @@ import TrustBar from "@/components/TrustBar";
 import ChatSmsWidget from "@/components/ChatSmsWidget";
 import BookingModal from "@/components/BookingModal";
 import Footer from "@/components/Footer";
+import { PHONE, PHONE_RAW, SERVICE_AREAS, LOGO_TEXT } from "@/config/site";
 
 export default function LocationsPage() {
   const [bookingModalOpen, setBookingModalOpen] = useState(false);
-  const [selectedCity, setSelectedCity] = useState("Dallas");
+  const [selectedArea, setSelectedArea] = useState<string | null>(null);
 
-  const cities = [
-    { name: "Dallas", trucks: 14, zipExample: "75201, 75204, 75214" },
-    { name: "Fort Worth", trucks: 12, zipExample: "76102, 76107, 76109" },
-    { name: "Plano", trucks: 9, zipExample: "75023, 75024, 75093" },
-    { name: "Frisco", trucks: 8, zipExample: "75034, 75035, 75036" },
-    { name: "Arlington", trucks: 10, zipExample: "76001, 76010, 76017" },
-    { name: "Garland", trucks: 7, zipExample: "75040, 75042, 75044" },
-    { name: "Irving", trucks: 8, zipExample: "75038, 75039, 75062" },
-    { name: "McKinney", trucks: 6, zipExample: "75069, 75070, 75071" },
-    { name: "Colleyville", trucks: 5, zipExample: "76034" },
-    { name: "Southlake", trucks: 5, zipExample: "76092" },
-  ];
+  const handleBookArea = (area: string) => {
+    setSelectedArea(area);
+    setBookingModalOpen(true);
+  };
 
   return (
     <div className="min-h-screen flex flex-col bg-white text-slate-900 font-sans">
-      <Navbar onOpenBooking={() => setBookingModalOpen(true)} />
-      
+      <Navbar onOpenQuote={() => setBookingModalOpen(true)} />
+
       <main className="flex-1">
-        <section className="py-14 sm:py-20 bg-slate-50 border-b border-slate-200 text-center">
+        <section className="pt-28 pb-14 sm:pt-36 sm:pb-20 bg-slate-50 border-b border-slate-200 text-center">
           <div className="max-w-4xl mx-auto px-4">
-            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-slate-200/70 text-slate-800 text-xs font-semibold uppercase tracking-wider mb-4 border border-slate-300/60">
-              <svg className="w-3.5 h-3.5 text-slate-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <div className="inline-flex items-center gap-1.5 px-3.5 py-1 rounded-full bg-cyan-100 text-cyan-900 text-xs font-semibold uppercase tracking-wider mb-4 border border-cyan-200">
+              <svg className="w-3.5 h-3.5 text-cyan-700" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <span>Rapid DFW Local Dispatch</span>
+              <span>Local Service Coverage</span>
             </div>
             <h1 className="text-3xl sm:text-5xl font-black text-slate-950 tracking-tight mb-4">
-              Local HVAC &amp; Heating Service Locations
+              Communities &amp; Neighborhoods We Serve
             </h1>
             <p className="text-slate-600 text-base sm:text-lg max-w-2xl mx-auto">
-              With mobile hubs positioned throughout the Dallas-Fort Worth metroplex, our licensed technicians are always just minutes away.
+              Our mobile wash rigs are dispatched daily across the region. Check our primary service zones below or call for same-week booking.
             </p>
           </div>
         </section>
@@ -51,50 +44,80 @@ export default function LocationsPage() {
 
         <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-16">
-              {cities.map((city, idx) => (
+            
+            {/* Quick stats grid */}
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center">
+                <div className="text-3xl font-extrabold text-cyan-600 mb-1">0%</div>
+                <div className="text-sm font-bold text-slate-900">Zero Travel Surcharge</div>
+                <p className="text-xs text-slate-500 mt-1">Standard rates apply across all listed zones</p>
+              </div>
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center">
+                <div className="text-3xl font-extrabold text-slate-900 mb-1">48 Hrs</div>
+                <div className="text-sm font-bold text-slate-900">Fast Scheduling</div>
+                <p className="text-xs text-slate-500 mt-1">Typical arrival within 2-3 business days</p>
+              </div>
+              <div className="bg-slate-50 border border-slate-200 rounded-2xl p-6 text-center">
+                <div className="text-3xl font-extrabold text-cyan-600 mb-1">100%</div>
+                <div className="text-sm font-bold text-slate-900">On-Site Self-Contained</div>
+                <p className="text-xs text-slate-500 mt-1">Truck-mounted water tanks &amp; pressure equipment</p>
+              </div>
+            </div>
+
+            {/* Service Areas Cards */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+              {SERVICE_AREAS.map((area, idx) => (
                 <div
                   key={idx}
-                  className="bg-slate-50 rounded-3xl p-6 border border-slate-200 hover:shadow-lg transition-all flex flex-col justify-between"
+                  className="bg-slate-50 rounded-2xl p-6 border border-slate-200 hover:border-cyan-400 hover:shadow-md transition-all flex flex-col justify-between"
                 >
                   <div>
-                    <div className="flex justify-between items-center mb-3">
-                      <h3 className="text-xl font-black text-slate-900">{city.name}, TX</h3>
-                      <span className="text-xs bg-emerald-100 text-emerald-800 font-bold px-2 py-0.5 rounded-full flex items-center gap-1">
-                        <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
-                        {city.trucks} Trucks Active
-                      </span>
+                    <div className="w-10 h-10 rounded-xl bg-cyan-100 text-cyan-700 flex items-center justify-center font-bold text-sm mb-4">
+                      ✓
                     </div>
+                    <h3 className="text-base font-bold text-slate-900 mb-2">{area}</h3>
                     <p className="text-xs text-slate-500 mb-4">
-                      Serving ZIPs: {city.zipExample} &amp; surrounding neighborhoods.
+                      Residential house washing, concrete surface restoration, roof soft wash, and commercial store cleaning.
                     </p>
                   </div>
                   <button
-                    type="button"
-                    onClick={() => {
-                      setSelectedCity(city.name);
-                      setBookingModalOpen(true);
-                    }}
-                    className="w-full py-2.5 bg-white hover:bg-slate-50 text-slate-900 font-semibold text-xs rounded-xl border border-slate-200 transition-colors cursor-pointer inline-flex items-center justify-center gap-1.5"
+                    onClick={() => handleBookArea(area)}
+                    className="w-full text-center py-2 px-3 bg-white hover:bg-cyan-600 hover:text-white text-slate-800 text-xs font-semibold rounded-lg border border-slate-200 transition-colors cursor-pointer"
                   >
-                    <span>Book in {city.name}</span>
-                    <svg className="w-3.5 h-3.5 text-slate-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M14 5l7 7m0 0l-7 7m7-7H3" />
-                    </svg>
+                    Schedule in {area} &rarr;
                   </button>
                 </div>
               ))}
             </div>
+
+            {/* Coverage note */}
+            <div className="bg-slate-950 text-white rounded-3xl p-8 sm:p-10 text-center">
+              <h2 className="text-xl sm:text-2xl font-black mb-3">Don&apos;t see your neighborhood listed?</h2>
+              <p className="text-slate-400 text-xs sm:text-sm max-w-xl mx-auto mb-6">
+                We frequently travel to surrounding communities and rural estates. Reach out with your address and we will confirm service availability immediately.
+              </p>
+              <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+                <button
+                  onClick={() => setBookingModalOpen(true)}
+                  className="bg-cyan-500 hover:bg-cyan-400 text-slate-950 font-bold px-6 py-2.5 rounded-full text-xs transition-all shadow-md cursor-pointer"
+                >
+                  Check My Address
+                </button>
+                <a
+                  href={`tel:${PHONE_RAW}`}
+                  className="text-xs font-semibold text-slate-300 hover:text-white"
+                >
+                  Call {PHONE}
+                </a>
+              </div>
+            </div>
+
           </div>
         </section>
       </main>
 
       <ChatSmsWidget />
-      <BookingModal
-        isOpen={bookingModalOpen}
-        onClose={() => setBookingModalOpen(false)}
-        defaultService={`HVAC Service in ${selectedCity}`}
-      />
+      <BookingModal isOpen={bookingModalOpen} onClose={() => setBookingModalOpen(false)} />
       <Footer />
     </div>
   );
